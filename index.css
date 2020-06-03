@@ -1,6 +1,8 @@
 * {
-  user-select: none; /* 텍스트 선택 막기 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
   outline: 0;
   margin: 0;
   padding: 0;
