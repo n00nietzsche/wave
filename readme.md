@@ -113,3 +113,47 @@ html에서 화면의 모든 영역을 사용하기 위한 다음 코드를 또 �
 ![](https://images.velog.io/images/jakeseo_me/post/3f20f764-14e6-46aa-bb46-3a3133220ff8/Screen%20Shot%202020-06-03%20at%2010.25.13%20PM.png)
 
 보기엔 변한게 없지만, 개발자도구로 확인했을 때 body가 모든 영역을 사용하는 것을 볼 수 있습니다.
+
+## 2. app.js 기본 코드 작성하기
+
+이제 본격적으로 js 코드를 작성해봅시다.
+
+클래스 형태로 작성합니다.
+코드에 대한 설명은 주석으로 대신하겠습니다.
+
+```js
+class App {
+  constructor() {
+    /* 캔버스 엘리먼트 생성 */
+    this.canvas = document.createElement("canvas");
+
+    /*
+    Canvas는 getContext() 메소드를 이용해서 렌더링 컨텍스트와
+    렌더링 컨텍스트의 그리기 함수들을 사용할 수 있습니다.
+
+    getContext() 메소드는 렌더링 컨텍스트 타입을 지정하는
+    하나의 파라메터를 가집니다.
+
+    여기서는 `CanvasRenderingContext2D`를 얻기 위해 '2d'로 지정합니다.
+    https://developer.mozilla.org/ko/docs/Web/HTML/Canvas/Tutorial/Basic_usage
+    */
+    this.ctx = this.canvas.getContext("2d");
+
+    /* 현재 html 문서의 body에 캔버스 엘리먼트 추가하기 */
+    document.body.appendChild(this.canvas);
+
+    /* 
+    사이즈가 변할 때 대응하기 위한 이벤트 리스너 
+    
+    추가 : once, passive, capture 등에 대한 설명
+    http://sculove.github.io/blog/2016/12/29/addEventListener-passive/
+    https://joshua1988.github.io/web-development/javascript/event-propagation-delegation/
+    */
+    window.addEventListener("resize", this.resize.bind(this), {
+      once: false,
+      passive: false,
+      capture: false,
+    });
+  }
+}
+```
